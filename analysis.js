@@ -89,11 +89,14 @@ async function downloadFriendsList() {
         headers: auth,
       }
     );
+
+    var friends = response.data.filter((user) => user.type == 1);
+
     console.log(
-      `finished downloading friends, downloaded ${response.data.length} friends`
+      `finished downloading friends, downloaded ${friends.length} friends`
     );
-    fs.writeFileSync("./friends.json", JSON.stringify(response.data));
-    return response.data;
+    fs.writeFileSync("./friends.json", JSON.stringify(friends));
+    return friends;
   }
   return JSON.parse(fs.readFileSync("./friends.json"));
 }
